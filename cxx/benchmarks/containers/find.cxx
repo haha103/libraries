@@ -12,36 +12,40 @@ using namespace std;
 
 int main ( int argc, char * argv[] )
 {
-    vector<string> svec = Seeds::GenVectorOfStrings<10, 10>();
+    //vector<string> svec = Seeds::GenVectorOfStrings<10, 10>();
+    vector<string> svec;
+    svec.emplace_back ( "TOM1" );
+    svec.emplace_back ( "TOM2" );
+    svec.emplace_back ( "TOM3" );
+    svec.emplace_back ( "TOM4" );
+    svec.emplace_back ( "TOM5" );
+    svec.emplace_back ( "TOM6" );
+    svec.emplace_back ( "TOM7" );
+    svec.emplace_back ( "TOM8" );
     set<string> sset ( svec.begin(), svec.end() );
     unordered_set<string> usset ( svec.begin(), svec.end() );
     list<string> slist ( svec.begin(), svec.end() );
-    string target = svec.at ( svec.size() / 2 );
+    string target = "TOM6";
 
-    auto span = Timings::TimeSpan <micro, 1000> ( [&] () {
+    auto span = Timings::TimeSpan <milli, 10000000> ( [&] () {
         std::find ( svec.begin(), svec.end(),  target );
     } );
-    cout << span.count() << " us" << endl;
+    cout << "vector: " << span.count() << " ms" << endl;
 
-    span = Timings::TimeSpan <micro, 1000> ( [&] () {
-        std::find ( svec.begin(), svec.end(),  target );
-    } );
-    cout << span.count() << " us" << endl;
-
-    span = Timings::TimeSpan <micro, 1000> ( [&] () {
+    span = Timings::TimeSpan <milli, 10000000> ( [&] () {
         sset.find ( target );
     } );
-    cout << span.count() << " us" << endl;
+    cout << "set: " << span.count() << " ms" << endl;
 
-    span = Timings::TimeSpan <micro, 1000> ( [&] () {
+    span = Timings::TimeSpan <milli, 10000000> ( [&] () {
         usset.find ( target );
     } );
-    cout << span.count() << " us" << endl;
+    cout << "unordered_set: " << span.count() << " ms" << endl;
 
-    span = Timings::TimeSpan <micro, 1000> ( [&] () {
+    span = Timings::TimeSpan <milli, 10000000> ( [&] () {
         std::find ( slist.begin(), slist.end(),  target );
     } );
-    cout << span.count() << " us" << endl;
+    cout << "list: " << span.count() << " ms" << endl;
 
     return 0;
 }
